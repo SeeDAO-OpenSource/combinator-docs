@@ -129,31 +129,77 @@ curl '/nonce?account=0x4B3fB561b1a4BfB6532A5911DcFf2B5a510c1142'
 
 接口中带有“（认证）”的表示是认证接口，登录后的用户可见。请求时需要提供登录Token。
 
-#### 主页 `GET /home`
+#### 当前活动项目 `GET /round/current`
+
+**参数**
+无
+
+**返回**
+- `id`: Round Id，大于0的整型数字
+- `end`: 结束时间，Unix时间戳（单位：秒）
+- `projects`: 项目列表
+    - `image`: 图片链接
+    - `desc`: 摘要描述
+    - `founders`: 以太坊地址或ENS域名列表
+
+#### 所有项目 `GET /projects`
+
+**参数**
+无
+
+**返回**
+- `projects`: 项目列表
+    - `image`: 图片链接
+    - `desc`: 摘要描述
+    - `founders`: 以太坊地址或ENS域名列表
 
 #### 单个项目详情页 `GET /project`
 
 **参数**
 - `id`：项目编号
 
+**返回**
+- `image`: 图片链接
+- `desc`: 摘要描述
+- `founders`: 以太坊地址或ENS域名列表
+- `twitter`: Twitter帐户
+- `attachments`: 附件链接
+
 #### 个人主页 `GET /profile`
 
 #### 提案 `POST /proposal`
+
+**参数**
+- `image`: 图片链接
+- `desc`: 摘要描述
+- `founders`: 以太坊地址或ENS域名列表
+- `twitter`: Twitter帐户
+- `attachments`: 附件链接
 
 **返回**
 - `success`: 是否成功，1成功，0失败
 
 #### 投票 `POST /vote`
 
+**参数**
+- `id`: 项目id
+- `amount`: 投票额度
+
 **返回**
 - `success`: 是否成功，1成功，0失败
 
 #### 充值Genesis或SEE `GET /recharge`
 
+**参数**
+- `amount`: 充值金额(`$SEE`的数量)
+
 **返回**
 - `success`: 是否成功，1成功，0失败
 
 #### 提现Genesis或SEE`GET /withdraw`
+
+**参数**
+- `amount`: 提现金额(`$cSEE`的数量)
 
 **返回**
 - `success`: 是否成功，1成功，0失败
