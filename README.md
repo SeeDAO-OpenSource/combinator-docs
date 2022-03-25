@@ -81,8 +81,13 @@ curl '/nonce?account=0x4B3fB561b1a4BfB6532A5911DcFf2B5a510c1142'
 
 **参数**
 - `account`: 以太坊帐户(地址)，如`0x542A9db710a48b0A952483F256c556E24B000a13`
-- `msg`: 原始消息
-  测试期间使用`Welcome to C Combinator!`
+- `type`: 签名类型
+  - 0: 对固定文本签名
+  - 1: 对组合文本签名(msg+time+nonce)
+  - 3: EIP-712标准签名
+- `msg`: 原始消息  
+  测试期间使用`Welcome to C Combinator!`  
+  EIP-712不传该字段(`type = 3`时)
 - `time`: 签名时间，Unix时间戳（秒）。
   服务器端会检查该时间，必须在5分钟以内才有效。
 - `nonce`: 来自服务器的随机数，见`/nonce`接口
@@ -93,37 +98,6 @@ curl '/nonce?account=0x4B3fB561b1a4BfB6532A5911DcFf2B5a510c1142'
 
 **签名说明**
 
-将`account`、`msg`、`time`、`nonce`参数使用`abi.encode`组合在一起后，用`keccak256`进行哈希编码，对该hash进行签名。（联调期间暂不实现，仅用"Hello World"替代。）
-
-**举例**
-
-```bash
- ✗ curl -v '/login' -H 'Content-Type:application/json' -d '{
-    "time": 0,
-    "msg": "Hello World!",
-    "account": "0x542A9db710a48b0A952483F256c556E24B000a13",
-    "nonce": 0,
-  "sig": "0xb31ecfe6932963dd23d1984bdef12feace1cabe15f070ddd56830145ebc16ba0704d68d1e314b64c222ef7204f3ca886c583c739fed5f21c3984bff85aa323251c"
-}'
-*   Trying ::1:8080...
-* Connected to localhost (::1) port 8080 (#0)
-> POST /login HTTP/1.1
-> Host: localhost:8080
-> User-Agent: curl/7.77.0
-> Accept: */*
-> Content-Type:application/json
-> Content-Length: 266
->
-* Mark bundle as not supporting multiuse
-< HTTP/1.1 200 OK
-< Content-Type: application/json; charset=utf-8
-< Set-Cookie: jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50IjoiMHg1NDJBOWRiNzEwYTQ4YjBBOTUyNDgzRjI1NmM1NTZFMjRCMDAwYTEzIiwiZXhwIjoxNjQ4NjA0Mzk4LCJvcmlnX2lhdCI6MTY0Nzk5OTU5OH0.ru7o2JsxDiS-mfttTsGOwp1XDfsrfHdn2GGuUT3hXm0; Path=/; Max-Age=604800
-< Date: Wed, 23 Mar 2022 01:39:58 GMT
-< Content-Length: 51
-<
-* Connection #0 to host localhost left intact
-{"state":200,"msg":"ok","data":{"IV":0,"result":1}}
-```
 
 ### 认证接口
 
