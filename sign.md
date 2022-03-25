@@ -11,15 +11,16 @@
 
 只对固定文本签名，调试用，服务器端只检查签名帐户，不检查原始文本内容。
 
-**举例**
+**示例**
 
 ```bash
  ✗ curl -v '/login' -H 'Content-Type:application/json' -d '{
+    "type": 0,
     "time": 0,
     "msg": "Hello World!",
     "account": "0x542A9db710a48b0A952483F256c556E24B000a13",
     "nonce": 0,
-  "sig": "0xb31ecfe6932963dd23d1984bdef12feace1cabe15f070ddd56830145ebc16ba0704d68d1e314b64c222ef7204f3ca886c583c739fed5f21c3984bff85aa323251c"
+    "sig": "0xb31ecfe6932963dd23d1984bdef12feace1cabe15f070ddd56830145ebc16ba0704d68d1e314b64c222ef7204f3ca886c583c739fed5f21c3984bff85aa323251c"
 }'
 *   Trying ::1:8080...
 * Connected to localhost (::1) port 8080 (#0)
@@ -58,6 +59,7 @@ Nonce: 0
 ```
 
 ## 方案3格式说明
+
 - `Message`
   - `address account`: 用户的以太坊地址
   - `int64 timestamp`: Unix时间戳，单位是秒
@@ -97,4 +99,33 @@ Nonce: 0
         nonce: 0
     }
 }
+```
+
+示例
+```bash
+ curl -v '/login' -H 'Content-Type:application/json' -d '{
+    "type": 3,
+    "time": 1,
+    "account": "0x9A8FdD9B77Bc026F44A3AaABeA088df2d8239F05",
+    "nonce": 0,
+  "sig": "0x13e88a5fb3c5daf17c4b9539019cf2047af50d9d5de4fbd2bba2246c60ca9a761f8a2990caa32536ef0d9c707ff2536de89704684d756c5b485032facb666d3b1c"
+}'
+*   Trying ::1:8080...
+* Connected to localhost (::1) port 8080 (#0)
+> POST /login HTTP/1.1
+> Host: localhost:8080
+> User-Agent: curl/7.77.0
+> Accept: */*
+> Content-Type:application/json
+> Content-Length: 254
+>
+* Mark bundle as not supporting multiuse
+< HTTP/1.1 200 OK
+< Content-Type: application/json; charset=utf-8
+< Set-Cookie: jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50IjoiMHg5QThGZEQ5Qjc3QmMwMjZGNDRBM0FhQUJlQTA4OGRmMmQ4MjM5RjA1IiwiZXhwIjoxNjQ4NzgwNDIyLCJvcmlnX2lhdCI6MTY0ODE3NTYyMn0.hGUIUkP6Di5TvZsxBu5dLxe9Ge8OO6Sns4KDUhtCnP0; Path=/; Max-Age=604800
+< Date: Fri, 25 Mar 2022 02:33:42 GMT
+< Content-Length: 51
+<
+* Connection #0 to host localhost left intact
+{"state":200,"msg":"ok","data":{"IV":0,"result":1}}
 ```
