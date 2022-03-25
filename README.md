@@ -41,6 +41,26 @@ API返回的数据均遵守以下数据结构
 }
 ```
 
+### 接口总览
+
+- 开放接口
+  - `GET /timestamp`: 获取时间戳
+  - `GET /nonce`: 获取随机数
+  - `POST /login`: 登录
+- 认证接口
+  - `GET /projects`: 列出项目
+    - `GET /projects?round=current`: 列出当前轮项目
+  - `POST /projects`: 提交一个新项目
+  - `GET /projects/ID`: 获取某个项目详情
+  - `GET /rounds`: 列出活动轮次
+  - `POST /rounds/`: 提交一个新轮次
+  - `GET /rounds/ID`: 获取某个轮次活动详情
+  - `GET /votes`: 查看自己的投票
+  - `POST /votes`: 投票
+  - `GET /deposit`: 充值/存款
+  - `GET /withdraw`: 提现/取款
+
+
 ### 开放接口
 
 开放接口无需认证，任何人都可以访问。
@@ -116,10 +136,12 @@ curl '/nonce?account=0x4B3fB561b1a4BfB6532A5911DcFf2B5a510c1142'
     - `desc`: 摘要描述
     - `founders`: 以太坊地址或ENS域名列表
 
-#### 所有项目 `GET /projects`
+#### 列出项目 `GET /projects`
 
 **参数**
-无
+- `round`: 第几轮项目, `current`表示当前轮
+- `offset`: 偏移量
+- `limit`: 返回最大数量
 
 **返回**
 - `projects`: 项目列表
@@ -127,10 +149,10 @@ curl '/nonce?account=0x4B3fB561b1a4BfB6532A5911DcFf2B5a510c1142'
     - `desc`: 摘要描述
     - `founders`: 以太坊地址或ENS域名列表
 
-#### 单个项目详情页 `GET /project`
+#### 获取单个项目详情页 `GET /projects/ID`
 
 **参数**
-- `id`：项目编号
+- `ID`：项目编号
 
 **返回**
 - `image`: 图片链接
@@ -162,7 +184,7 @@ curl '/nonce?account=0x4B3fB561b1a4BfB6532A5911DcFf2B5a510c1142'
 **返回**
 - `success`: 是否成功，1成功，0失败
 
-#### 充值Genesis或SEE `GET /recharge`
+#### 充值Genesis或SEE `GET /deposit`
 
 **参数**
 - `amount`: 充值金额(`$SEE`的数量)
