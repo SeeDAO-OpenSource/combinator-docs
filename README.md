@@ -53,7 +53,6 @@ API返回的数据均遵守以下数据结构
   - `POST /projects`: 提交一个新项目
   - `GET /projects/ID`: 获取某个项目详情
   - `GET /rounds`: 列出活动轮次
-  - `POST /rounds/`: 提交一个新轮次
   - `GET /rounds/ID`: 获取某个轮次活动详情
   - `GET /votes`: 查看自己的投票
   - `POST /votes`: 投票
@@ -62,7 +61,9 @@ API返回的数据均遵守以下数据结构
   - `GET /rewards`: 列出本人收益
   - `GET /rewards/ID`: 列出单个项目收益，ID为项目ID
   - `POST /claim`: 获取奖励签名，用于合约交互
-
+- 管理接口
+  - `POST /admin/rounds/`: 提交一个新轮次
+  - `DELETE /admin/projects/ID`: 删除某个项目
 
 ### 开放接口
 
@@ -139,7 +140,7 @@ curl '/nonce?account=0x4B3fB561b1a4BfB6532A5911DcFf2B5a510c1142'
 
 接口中带有“（认证）”的表示是认证接口，登录后的用户可见。请求时需要提供登录Token。
 
-#### 当前活动项目 `GET /rounds/`
+#### 列出所有轮次 `GET /rounds/`
 
 **参数**
 无
@@ -150,15 +151,10 @@ curl '/nonce?account=0x4B3fB561b1a4BfB6532A5911DcFf2B5a510c1142'
   - `start`: 开始时间，Unix时间戳（单位：秒）
   - `end`: 结束时间，Unix时间戳（单位：秒）
 
-#### 当前活动项目 `GET /rounds/ID`
+#### 列出某个轮次 `GET /rounds/ID`
 
 **参数**
 - `ID`: 大于0的整数，或者`current`
-
-**返回**
-- `id`: Round Id，大于0的整型数字
-- `start`: 开始时间，Unix时间戳（单位：秒）
-- `end`: 结束时间，Unix时间戳（单位：秒）
 
 **返回**
 - `id`: Round Id，大于0的整型数字
@@ -228,3 +224,23 @@ curl '/nonce?account=0x4B3fB561b1a4BfB6532A5911DcFf2B5a510c1142'
 - `projects`: 项目ID列表
 - `amounts`: 奖励数量列表
 - `signature`: 签名
+
+#### 提交一个新轮次 `POST /admin/rounds/`
+
+**参数**
+- `ID`: 大于0的整数，或者`current`
+- `start`: 开始时间，Unix时间戳（单位：秒）
+- `end`: 结束时间，Unix时间戳（单位：秒）
+
+**返回**
+- `id`: Round Id，大于0的整型数字
+- `start`: 开始时间，Unix时间戳（单位：秒）
+- `end`: 结束时间，Unix时间戳（单位：秒）
+
+#### 删除某个项目 `DELETE /admin/projects/ID`
+
+**参数**
+- `ID`: 项目ID
+
+**返回**
+- `success`: 是否成功，1成功，0失败
