@@ -45,11 +45,11 @@ API返回的数据均遵守以下数据结构
 
 - 开放接口
   - `GET /timestamp`: 获取时间戳
+  - `GET /projects`: 列出项目
+    - `GET /projects?round=current`: 列出当前轮项目
   - `GET /nonce`: 获取随机数
   - `POST /login`: 登录
 - 认证接口
-  - `GET /projects`: 列出项目
-    - `GET /projects?round=current`: 列出当前轮项目
   - `POST /projects`: 提交一个新项目
   - `GET /projects/ID`: 获取某个项目详情
   - `GET /rounds`: 列出活动轮次
@@ -59,6 +59,9 @@ API返回的数据均遵守以下数据结构
   - `POST /votes`: 投票
   - `GET /deposit`: 充值/存款
   - `GET /withdraw`: 提现/取款
+  - `GET /rewards`: 列出本人收益
+  - `GET /rewards/ID`: 列出单个项目收益，ID为项目ID
+  - `POST /claim`: 获取奖励签名，用于合约交互
 
 
 ### 开放接口
@@ -70,6 +73,19 @@ API返回的数据均遵守以下数据结构
 Unix时间戳，单位是秒。
 
 该接口主要用于初步测试服务器连通性，只返回一个整数，方便测试和监控使用。
+
+#### 列出项目 `GET /projects`
+
+**参数**
+- `round`: 第几轮项目, `current`表示当前轮
+- `offset`: 偏移量
+- `limit`: 返回最大数量
+
+**返回**
+- `projects`: 项目列表
+    - `image`: 图片链接
+    - `desc`: 摘要描述
+    - `founders`: 以太坊地址或ENS域名列表
 
 #### 获取Nonce `GET /nonce`
 
@@ -123,31 +139,31 @@ curl '/nonce?account=0x4B3fB561b1a4BfB6532A5911DcFf2B5a510c1142'
 
 接口中带有“（认证）”的表示是认证接口，登录后的用户可见。请求时需要提供登录Token。
 
-#### 当前活动项目 `GET /round/current`
+#### 当前活动项目 `GET /rounds/`
 
 **参数**
 无
 
 **返回**
-- `id`: Round Id，大于0的整型数字
-- `end`: 结束时间，Unix时间戳（单位：秒）
-- `projects`: 项目列表
-    - `image`: 图片链接
-    - `desc`: 摘要描述
-    - `founders`: 以太坊地址或ENS域名列表
+- `rounds`: 活动轮次
+  - `id`: Round Id，大于0的整型数字
+  - `start`: 开始时间，Unix时间戳（单位：秒）
+  - `end`: 结束时间，Unix时间戳（单位：秒）
 
-#### 列出项目 `GET /projects`
+#### 当前活动项目 `GET /rounds/ID`
 
 **参数**
-- `round`: 第几轮项目, `current`表示当前轮
-- `offset`: 偏移量
-- `limit`: 返回最大数量
+- `ID`: 大于0的整数，或者`current`
 
 **返回**
-- `projects`: 项目列表
-    - `image`: 图片链接
-    - `desc`: 摘要描述
-    - `founders`: 以太坊地址或ENS域名列表
+- `id`: Round Id，大于0的整型数字
+- `start`: 开始时间，Unix时间戳（单位：秒）
+- `end`: 结束时间，Unix时间戳（单位：秒）
+
+**返回**
+- `id`: Round Id，大于0的整型数字
+- `start`: 开始时间，Unix时间戳（单位：秒）
+- `end`: 结束时间，Unix时间戳（单位：秒）
 
 #### 获取单个项目详情页 `GET /projects/ID`
 
@@ -160,10 +176,12 @@ curl '/nonce?account=0x4B3fB561b1a4BfB6532A5911DcFf2B5a510c1142'
 - `founders`: 以太坊地址或ENS域名列表
 - `twitter`: Twitter帐户
 - `attachments`: 附件链接
+- `votes`: (登录时)投票的票数
+- `reward`: 
+  - `amount`: 奖励数量, 浮点数, 大于0
+  - `signature`: 签名
 
-#### 个人主页 `GET /profile`
-
-#### 提案 `POST /proposal`
+#### 提案 `POST /projects`
 
 **参数**
 - `image`: 图片链接
@@ -192,10 +210,21 @@ curl '/nonce?account=0x4B3fB561b1a4BfB6532A5911DcFf2B5a510c1142'
 **返回**
 - `success`: 是否成功，1成功，0失败
 
-#### 提现Genesis或SEE`GET /withdraw`
+#### 提现Genesis或SEE `GET /withdraw`
 
 **参数**
 - `amount`: 提现金额(`$cSEE`的数量)
 
 **返回**
 - `success`: 是否成功，1成功，0失败
+
+#### 获取奖励签名，用于合约交互 `POST /claim`
+
+**参数**
+- `projects`: 项目ID列表
+
+**返回**
+- `account`: 帐户地址
+- `projects`: 项目ID列表
+- `amounts`: 奖励数量列表
+- `signature`: 签名
