@@ -14,7 +14,8 @@
 
 | 函数 | 说明 | 输入 | 输出 |
 | --- | --- | --- | --- |
-| depositGenesis(uint256 tokenId) | 存入/充值GenesisNFT | uint256 tokenId：Genesis的tokenId | 无 |
+| depositGenesis(uint256 tokenId)  | 存入/充值GenesisNFT | uint256 tokenId：Genesis的tokenId | 无 |
 | withdrawGenesis(uint256 tokenId) | 取出/提现 GenesisNFT | uint256 tokenId：Genesis的tokenId | 无 |
-| depositSee(uint256 amount) | 存入/充值 SEE 代币 | uint256 amount：SEE的数量 | 无 |
-| withdrawSee(uint256 amount) | 取出/提现 SEE 代币。  注意参数是cSEE数量（会被销毁）。 | uint256 amount：cSEE的数量 | 无 |
+| depositSee(uint256 amount)  | 存入/充值 SEE 代币 | uint256 amount：SEE的数量 | 无 |
+| withdrawSee(uint256 amount) | 取出/提现 SEE 代币。<br/>注意参数是cSEE数量（会被销毁）。 | uint256 amount：cSEE的数量 | 无 |
+| genesisBalanceOf(address owner) | 查询用户的Genesis | address owner: 用户地址 | uint256[] tokenIds: 持有的ID，从小到大排列。 |
