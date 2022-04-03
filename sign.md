@@ -78,7 +78,7 @@ Nonce: 0
         { name: "name", type: "string" },
         { name: "version", type: "string" },
         { name: "chainId", type: "uint256" },
-        { name: "salt", type: "string" }
+        { name: "salt", type: "byte32" }
         ],
         Combinator: [
         { name: "account", type: "address" },
@@ -108,7 +108,7 @@ Nonce: 0
     "time": 1,
     "account": "0x9A8FdD9B77Bc026F44A3AaABeA088df2d8239F05",
     "nonce": 0,
-  "sig": "0x13e88a5fb3c5daf17c4b9539019cf2047af50d9d5de4fbd2bba2246c60ca9a761f8a2990caa32536ef0d9c707ff2536de89704684d756c5b485032facb666d3b1c"
+    "sig": "0x13e88a5fb3c5daf17c4b9539019cf2047af50d9d5de4fbd2bba2246c60ca9a761f8a2990caa32536ef0d9c707ff2536de89704684d756c5b485032facb666d3b1c"
 }'
 *   Trying ::1:8080...
 * Connected to localhost (::1) port 8080 (#0)
