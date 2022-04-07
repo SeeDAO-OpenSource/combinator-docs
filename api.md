@@ -27,11 +27,12 @@ API返回的数据均遵守以下数据结构
   - `GET /rounds`: 列出活动轮次
   - `GET /rounds/ID`: 获取某个轮次活动详情
   - `GET /projects`: 列出项目
-    - `GET /projects?round=current`: 列出当前轮项目
+  - `GET /static/{filename}`: 下载文件
   - `GET /nonce`: 获取随机数
   - `POST /login`: 登录
 - 认证接口
   - `POST /projects`: 提交一个新项目
+  - `POST /files`: 上传文件
   - `GET /projects/ID`: 获取某个项目详情
   - `GET /votes`: 查看自己的投票
   - `POST /votes`: 投票
@@ -167,6 +168,39 @@ curl '/nonce?account=0x4B3fB561b1a4BfB6532A5911DcFf2B5a510c1142'
 
 **返回**
 - `success`: 是否成功，1成功，0失败
+
+### 上传文件: `POST /files`
+
+用multipart form data上传文件
+
+**参数**
+文件名
+
+**返回**
+成功和失败的文件列表
+
+**示例**
+```bash
+curl -X POST http://dev.seedao.cc/api/v1/files \
+  -H 'Authorization:Bearer xxxx' \
+  -F "upload[]=@/path/to/the/file1" \
+  -F "upload[]=@/path/to/the/file2" \
+  -H "Content-Type: multipart/form-data"
+```
+
+```json
+{
+  "state": 200,
+  "msg": "ok",
+  "data": {
+    "failed": [],
+    "success": [
+      "http://dev.seedao.cc/api/v1/static/0x542A9db710a48b0A952483F256c556E24B000a13/file1",
+      "http://dev.seedao.cc/api/v1/static/0x542A9db710a48b0A952483F256c556E24B000a13/file2"
+    ]
+  }
+}
+```
 
 ### 投票 `POST /vote`
 
