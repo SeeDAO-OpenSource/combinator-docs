@@ -32,6 +32,7 @@ API返回的数据均遵守以下数据结构
   - `POST /login`: 登录
 - 认证接口
   - `POST /projects`: 提交一个新项目
+  - `POST /cover`: 上传图片
   - `POST /files`: 上传文件
   - `GET /projects/ID`: 获取某个项目详情
   - `GET /votes`: 查看自己的投票
@@ -168,6 +169,35 @@ curl '/nonce?account=0x4B3fB561b1a4BfB6532A5911DcFf2B5a510c1142'
 
 **返回**
 - `success`: 是否成功，1成功，0失败
+
+### 上传图片: `POST /cover`
+
+上传项目的封面图片。
+
+**参数**
+
+**返回**
+- success: 是否成功
+- link: 图片链接
+
+**示例**
+
+```bash
+curl -X POST http://dev.seedao.cc/api/v1/cover  -H 'Authorization:Bearer xxx' \
+  -F "file=@/path/to/local/file.png" \
+  -H "Content-Type: multipart/form-data"
+```
+
+```json
+{
+  "state": 200,
+  "msg": "ok",
+  "data": {
+    "link": "http://dev.seedao.cc/api/v1/cover/0x42B81011a367d3C7f4e4B570Fadd51209C93F287/314.png",
+    "success": true
+  }
+}
+```
 
 ### 上传文件: `POST /files`
 
