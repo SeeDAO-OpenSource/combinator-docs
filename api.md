@@ -59,9 +59,9 @@ Unix时间戳，单位是秒。
 ### 列出项目 `GET /projects`
 
 **参数**
-- `round`: 第几轮项目, `current`表示当前轮
-- `offset`: 偏移量
-- `limit`: 返回最大数量
+- `round`: 第几轮项目, `current`表示当前轮, 不填表示所有项目。
+- `offset`: 偏移量，可不填，默认值0（不偏移）
+- `limit`: 返回最大数量，可不填，默认值100
 
 **返回**
 - `projects`: 项目列表
@@ -231,12 +231,23 @@ curl -X POST http://dev.seedao.cc/api/v1/files \
   }
 }
 ```
-
-### 投票 `POST /vote`
+### 查看自己的投票 `GET /votes`
 
 **参数**
-- `id`: 项目id
-- `amount`: 投票额度
+- `project`: 项目id, 可不填（表示所有投票）
+- `round`: 投票所属活动轮次，1,2,3或者current，可不填（表示所有轮次）
+- `offset`: 偏移量，可不填，默认值0（不偏移）
+- `limit`: 返回最大数量，可不填，默认值100
+
+**返回**
+- `project`: 项目id
+- `votes`: 投票数量
+
+### 投票 `POST /votes`
+
+**参数**
+- `project`: 项目id
+- `votes`: 投票数量
 
 **返回**
 - `success`: 是否成功，1成功，0失败
