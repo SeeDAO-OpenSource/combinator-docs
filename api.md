@@ -82,10 +82,11 @@ Unix时间戳，单位是秒。
 ### 列出某个轮次 `GET /rounds/ID`
 
 **参数**
-- `ID`: 大于0的整数，或者`current`
+- `ID`: 大于0的整数，或者`current`/`next`
 
 **返回**
 - `id`: Round Id，大于0的整型数字
+- `desc`: 本轮活动的描述
 - `start`: 开始时间，Unix时间戳（单位：秒）
 - `end`: 结束时间，Unix时间戳（单位：秒）
 
