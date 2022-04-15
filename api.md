@@ -37,6 +37,7 @@ API返回的数据均遵守以下数据结构
   - `GET /projects/ID`: 获取某个项目详情
   - `GET /votes`: 查看自己的投票
   - `POST /votes`: 投票
+  - `GET /myVoting`: 查看自己投票的项目
   - `GET /deposit`: 充值/存款
   - `GET /withdraw`: 提现/取款
   - `GET /rewards`: 列出本人收益
@@ -68,6 +69,7 @@ Unix时间戳，单位是秒。
     - `image`: 图片链接
     - `desc`: 摘要描述
     - `founders`: 以太坊地址或ENS域名列表
+
 ### 列出所有轮次 `GET /rounds/`
 
 **参数**
@@ -252,6 +254,20 @@ curl -X POST http://dev.seedao.cc/api/v1/files \
 
 **返回**
 - `success`: 是否成功，1成功，0失败
+
+### 查看自己投票的项目: `GET /myVoting`
+
+**参数**
+- `round`: 第几轮项目, `current`表示当前轮, `past`表示往期项目, 不填表示所有项目。
+- `offset`: 偏移量，可不填，默认值0（不偏移）
+- `limit`: 返回最大数量，可不填，默认值100
+
+**返回**
+- `projects`: 项目列表
+    - `image`: 图片链接
+    - `desc`: 摘要描述
+    - `founders`: 以太坊地址或ENS域名列表
+    - `myVotes`: 我投的票数
 
 ### 充值Genesis或SEE `GET /deposit`
 
