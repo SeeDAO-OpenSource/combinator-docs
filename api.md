@@ -67,6 +67,7 @@ Unix时间戳，单位是秒。
 **返回**
 - `projects`: 项目列表
     - `image`: 图片链接
+    - `title`: 标题
     - `desc`: 摘要描述
     - `founders`: 以太坊地址或ENS域名列表
 
@@ -100,6 +101,7 @@ Unix时间戳，单位是秒。
 **返回**
 - `creator`: 创建者
 - `image`: 图片链接
+- `title`: 标题
 - `desc`: 摘要描述
 - `founders`: 以太坊地址或ENS域名列表
 - `twitter`: Twitter帐户
@@ -165,6 +167,7 @@ curl '/nonce?account=0x4B3fB561b1a4BfB6532A5911DcFf2B5a510c1142'
 
 **参数**
 - `image`: 图片链接
+- `title`: 标题
 - `desc`: 摘要描述
 - `founders`: 以太坊地址或ENS域名列表
 - `twitter`: Twitter帐户
@@ -265,6 +268,7 @@ curl -X POST http://dev.seedao.cc/api/v1/files \
 **返回**
 - `projects`: 项目列表
     - `image`: 图片链接
+    - `title`: 标题
     - `desc`: 摘要描述
     - `founders`: 以太坊地址或ENS域名列表
     - `myVotes`: 我投的票数
