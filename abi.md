@@ -19,3 +19,30 @@
 | depositSee(uint256 amount)  | 存入/充值 SEE 代币 | uint256 amount：SEE的数量 | 无 |
 | withdrawSee(uint256 amount) | 取出/提现 SEE 代币。<br/>注意参数是cSEE数量（会被销毁）。 | uint256 amount：cSEE的数量 | 无 |
 | genesisBalanceOf(address owner) | 查询用户的Genesis | address owner: 用户地址 | uint256[] tokenIds: 持有的ID，从小到大排列。 |
+
+#### verify
+验证签名是否是管理员签发，是返回true，不是返回false。
+```solidity
+function verify(
+        address to,
+        string calldata id,
+        uint256 amount,
+        bytes32 ticket,
+        uint256 timestamp,
+        bytes memory signature
+    ) public view returns (bool)
+```
+
+#### claim
+
+批量claim，数组中的元素一一对应。
+
+```solidity
+function claim(
+        string[] calldata projects,
+        uint256[] calldata amounts,
+        bytes32[] calldata tickets,
+        uint256[] calldata timestamps,
+        bytes[] calldata signatures
+    ) external
+```
