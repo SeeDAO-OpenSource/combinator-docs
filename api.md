@@ -289,6 +289,40 @@ curl -X POST http://dev.seedao.cc/api/v1/files \
 **返回**
 - `success`: 是否成功，1成功，0失败
 
+
+### 列出本人收益: `GET /rewards`
+
+按项目列出本人的收益，默认只列出未领取(claim)的收益
+
+**参数**
+无
+
+**返回**
+
+- `rewards`: 奖励列表
+  - `account`: 帐户
+  - `project`: 项目ID
+  - `rewards`: 奖励，类型是`float64`, 单位是 `SEED`
+  - `rewardsInWei`: 奖励，类型是字符串，单位是`wei`，可以直接传入合约
+  - `round`: 项目所在的轮次
+  - `timestamp`: 签名的时间戳，单位是秒
+  - `sig`: 签名
+
+### 列出单个项目收益，ID为项目ID: `GET /rewards/ID`
+
+**参数**
+路径中含有项目id
+
+**返回**
+
+- `account`: 帐户
+- `project`: 项目ID
+- `rewards`: 奖励，类型是`float64`, 单位是 `SEED`
+- `rewardsInWei`: 奖励，类型是字符串，单位是`wei`，可以直接传入合约
+- `round`: 项目所在的轮次
+- `timestamp`: 签名的时间戳，单位是秒
+- `sig`: 签名
+
 ### 获取奖励签名，用于合约交互 `POST /claim`
 
 **参数**
