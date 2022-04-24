@@ -17,11 +17,12 @@
 
 | 函数 | 说明 | 输入 | 输出 |
 | --- | --- | --- | --- |
-| depositGenesis(uint256 tokenId)  | 存入/充值GenesisNFT | uint256 tokenId：Genesis的tokenId | 无 |
+| depositGenesis(uint256 tokenId)  | 存入/充值GenesisNFT (需要提前approve) | uint256 tokenId：Genesis的tokenId | 无 |
 | withdrawGenesis(uint256 tokenId) | 取出/提现 GenesisNFT | uint256 tokenId：Genesis的tokenId | 无 |
-| depositSee(uint256 amount)  | 存入/充值 SEE 代币 | uint256 amount：SEE的数量 | 无 |
+| depositSee(uint256 amount)  | 存入/充值 SEE 代币 (需要提前approve) | uint256 amount：SEE的数量 | 无 |
 | withdrawSee(uint256 amount) | 取出/提现 SEE 代币。<br/>注意参数是cSEE数量（会被销毁）。 | uint256 amount：cSEE的数量 | 无 |
 | genesisBalanceOf(address owner) | 查询用户的Genesis | address owner: 用户地址 | uint256[] tokenIds: 持有的ID，从小到大排列。 |
+| verify(address to, string calldata id, uint256 amount, bytes32 ticket, uint256 timestamp, bytes memory signature) | 验证签名 | `address to`: 帐户地址，该地址也是claim时候使用的地址<br/>`string calldata id`: 项目id<br/>`uint256 amount`: 奖励数量<br/>`bytes32 ticket`: 票价，防止重复领取<br/>`uint256 timestamp`: Unix时间戳，单位是秒<br/>`bytes memory signature`: 签名 | true: 匹配<br/> false：不匹配 |
 
 #### verify
 验证签名是否是管理员签发，是返回true，不是返回false。
