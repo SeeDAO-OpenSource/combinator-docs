@@ -38,8 +38,7 @@ API返回的数据均遵守以下数据结构
   - `GET /votes`: 查看自己的投票
   - `POST /votes`: 投票
   - `GET /myVoting`: 查看自己投票的项目
-  - `GET /deposit`: 充值/存款
-  - `GET /withdraw`: 提现/取款
+  - `GET /balance`: 余额
   - `GET /rewards`: 列出本人收益
   - `GET /rewards/ID`: 列出单个项目收益，ID为项目ID
   - `POST /claim`: 获取奖励签名，用于合约交互
@@ -273,21 +272,14 @@ curl -X POST http://dev.seedao.cc/api/v1/files \
     - `founders`: 以太坊地址或ENS域名列表
     - `myVotes`: 我投的票数
 
-### 充值Genesis或SEE `GET /deposit`
+### 充值Genesis或SEE `GET /balance`
 
 **参数**
-- `amount`: 充值金额(`$SEE`的数量)
+无
 
 **返回**
-- `success`: 是否成功，1成功，0失败
-
-### 提现Genesis或SEE `GET /withdraw`
-
-**参数**
-- `amount`: 提现金额(`$cSEE`的数量)
-
-**返回**
-- `success`: 是否成功，1成功，0失败
+- `account`: 帐户地址
+- `balance`: 余额
 
 
 ### 列出本人收益: `GET /rewards`
