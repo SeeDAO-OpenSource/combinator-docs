@@ -41,6 +41,7 @@ API返回的数据均遵守以下数据结构
   - `GET /balance`: 余额
   - `GET /rewards`: 列出本人收益
   - `GET /rewards/ID`: 列出单个项目收益，ID为项目ID
+  - `GET /roi`: 列出ROI
   - `POST /claim`: 获取奖励签名，用于合约交互
 - 管理接口
   - `POST /admin/rounds/`: 提交一个新轮次
@@ -59,11 +60,13 @@ Unix时间戳，单位是秒。
 ### 列出项目 `GET /projects`
 
 **参数**
+
 - `round`: 第几轮项目, `current`表示当前轮, 不填表示所有项目。
 - `offset`: 偏移量，可不填，默认值0（不偏移）
 - `limit`: 返回最大数量，可不填，默认值100
 
 **返回**
+
 - `projects`: 项目列表
     - `image`: 图片链接
     - `title`: 标题
@@ -73,6 +76,7 @@ Unix时间戳，单位是秒。
 ### 列出所有轮次 `GET /rounds/`
 
 **参数**
+
 无
 
 **返回**
@@ -95,6 +99,7 @@ Unix时间戳，单位是秒。
 ### 获取单个项目详情页 `GET /projects/ID`
 
 **参数**
+
 - `ID`：项目编号
 
 **返回**
@@ -113,9 +118,11 @@ Unix时间戳，单位是秒。
 ### 获取Nonce `GET /nonce`
 
 **参数**
+
 - `account`: 帐户，即以太坊地址
 
 **返回**
+
 - `account`: 帐户，即以太坊地址
 - `nonce`: 随机数，64位整数且大于等于0，登录用
 
@@ -139,6 +146,7 @@ curl '/nonce?account=0x4B3fB561b1a4BfB6532A5911DcFf2B5a510c1142'
 ### 登录 `POST /login`
 
 **参数**
+
 - `account`: 以太坊帐户(地址)，如`0x542A9db710a48b0A952483F256c556E24B000a13`
 - `type`: 签名类型
   - 0: 对固定文本签名
@@ -153,9 +161,11 @@ curl '/nonce?account=0x4B3fB561b1a4BfB6532A5911DcFf2B5a510c1142'
 - `sig`: 对以上数据的签名
 
 **返回**
+
 返回的登录令环（`Token`）在`Set-Cookie`头里。
 
 **签名说明**
+
 签名说明详见[签名方案](sign.md)
 
 ## 认证接口
@@ -165,6 +175,7 @@ curl '/nonce?account=0x4B3fB561b1a4BfB6532A5911DcFf2B5a510c1142'
 ### 提案 `POST /projects`
 
 **参数**
+
 - `image`: 图片链接
 - `title`: 标题
 - `desc`: 摘要描述
@@ -173,6 +184,7 @@ curl '/nonce?account=0x4B3fB561b1a4BfB6532A5911DcFf2B5a510c1142'
 - `attachments`: 附件链接
 
 **返回**
+
 - `success`: 是否成功，1成功，0失败
 
 ### 上传图片: `POST /cover`
@@ -182,6 +194,7 @@ curl '/nonce?account=0x4B3fB561b1a4BfB6532A5911DcFf2B5a510c1142'
 **参数**
 
 **返回**
+
 - success: 是否成功
 - link: 图片链接
 
@@ -209,9 +222,11 @@ curl -X POST http://dev.seedao.cc/api/v1/cover  -H 'Authorization:Bearer xxx' \
 用multipart form data上传文件
 
 **参数**
+
 文件名
 
 **返回**
+
 成功和失败的文件列表
 
 **示例**
@@ -239,32 +254,38 @@ curl -X POST http://dev.seedao.cc/api/v1/files \
 ### 查看自己的投票 `GET /votes`
 
 **参数**
+
 - `project`: 项目id, 可不填（表示所有投票）
 - `round`: 投票所属活动轮次，1,2,3或者current，可不填（表示所有轮次）
 - `offset`: 偏移量，可不填，默认值0（不偏移）
 - `limit`: 返回最大数量，可不填，默认值100
 
 **返回**
+
 - `project`: 项目id
 - `votes`: 投票数量
 
 ### 投票 `POST /votes`
 
 **参数**
+
 - `project`: 项目id
 - `votes`: 投票数量
 
 **返回**
+
 - `success`: 是否成功，1成功，0失败
 
 ### 查看自己投票的项目: `GET /myVoting`
 
 **参数**
+
 - `round`: 第几轮项目, `current`表示当前轮, `past`表示往期项目, 不填表示所有项目。
 - `offset`: 偏移量，可不填，默认值0（不偏移）
 - `limit`: 返回最大数量，可不填，默认值100
 
 **返回**
+
 - `projects`: 项目列表
     - `image`: 图片链接
     - `title`: 标题
@@ -275,9 +296,11 @@ curl -X POST http://dev.seedao.cc/api/v1/files \
 ### 充值Genesis或SEE `GET /balance`
 
 **参数**
+
 无
 
 **返回**
+
 - `account`: 帐户地址
 - `balance`: 余额
 
@@ -287,6 +310,7 @@ curl -X POST http://dev.seedao.cc/api/v1/files \
 按项目列出本人的收益，默认只列出未领取(claim)的收益
 
 **参数**
+
 无
 
 **返回**
@@ -303,6 +327,7 @@ curl -X POST http://dev.seedao.cc/api/v1/files \
 ### 列出单个项目收益，ID为项目ID: `GET /rewards/ID`
 
 **参数**
+
 路径中含有项目id
 
 **返回**
@@ -315,9 +340,23 @@ curl -X POST http://dev.seedao.cc/api/v1/files \
 - `timestamp`: 签名的时间戳，单位是秒
 - `sig`: 签名
 
+### 列出ROI: `GET /roi`
+
+**参数**
+
+无
+
+**返回**
+- `roi`: ROI，小数，如0.1表示10%
+- `profit`:
+  - `total`: 全部收益
+  - `lastRound`: 上一期收益
+  - `averageRound`: 平均每期收益
+
 ### 获取奖励签名，用于合约交互 `POST /claim`
 
 **参数**
+
 - `projects`: 项目ID列表
 
 **返回**
@@ -329,11 +368,13 @@ curl -X POST http://dev.seedao.cc/api/v1/files \
 ### 提交一个新轮次 `POST /admin/rounds/`
 
 **参数**
+
 - `ID`: 大于0的整数，或者`current`
 - `start`: 开始时间，Unix时间戳（单位：秒）
 - `end`: 结束时间，Unix时间戳（单位：秒）
 
 **返回**
+
 - `id`: Round Id，大于0的整型数字
 - `start`: 开始时间，Unix时间戳（单位：秒）
 - `end`: 结束时间，Unix时间戳（单位：秒）
@@ -341,7 +382,9 @@ curl -X POST http://dev.seedao.cc/api/v1/files \
 ### 删除某个项目 `DELETE /admin/projects/ID`
 
 **参数**
+
 - `ID`: 项目ID
 
 **返回**
+
 - `success`: 是否成功，1成功，0失败
