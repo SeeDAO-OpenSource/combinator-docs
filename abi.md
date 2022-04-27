@@ -3,6 +3,9 @@
 ## 合约部署地址
 | 网络     | 版本  | 合约                | 地址                                        |
 |---------|-------|--------------------|--------------------------------------------|
+| Rinkeby | 0.4.0 | SeeDAO Genesis NFT | 0xEFbe15B6986e10092008Ec6F339E967dAD460a35 |
+|         |       | SEE                | 0xe11C7eA31B92B6e0eB86154786DD8D302A9D5b82 |
+|         |       | Combinator         | 0x790c7AA995B4017A0197F959fF6E368DF8045C66 |
 | Rinkeby | 0.3.0 | SeeDAO Genesis NFT | 0x0E57257f8527e62ef861f0677DcCa485BFFC95BF |
 |         |       | SEE                | 0xDE3C7dC725aac3719B3076dCd1e949777889A22E |
 |         |       | Combinator         | 0xf00c0fD0e0427Fa57C77793B33fAcB8c092D064C |
@@ -22,6 +25,7 @@
 | depositSee(uint256 amount)  | 存入/充值 SEE 代币 (需要提前approve) | uint256 amount：SEE的数量 | 无 |
 | withdrawSee(uint256 amount) | 取出/提现 SEE 代币。<br/>注意参数是cSEE数量（会被销毁）。 | uint256 amount：cSEE的数量 | 无 |
 | genesisBalanceOf(address owner) | 查询用户的Genesis | address owner: 用户地址 | uint256[] tokenIds: 持有的ID，从小到大排列。 |
+| genesisStaked(address owner) | 查询用户已经抵押的Genesis | address owner: 用户地址 | uint256[] tokenIds: 抵押过的ID，从小到大排列。 |
 | verify(address to, string calldata id, uint256 amount, bytes32 ticket, uint256 timestamp, bytes memory signature) | 验证签名 | `address to`: 帐户地址，该地址也是claim时候使用的地址<br/>`string calldata id`: 项目id<br/>`uint256 amount`: 奖励数量<br/>`bytes32 ticket`: 票价，防止重复领取<br/>`uint256 timestamp`: Unix时间戳，单位是秒<br/>`bytes memory signature`: 签名 | true: 匹配<br/> false：不匹配 |
 
 #### verify
