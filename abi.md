@@ -3,6 +3,9 @@
 ## 合约部署地址
 | 网络     | 版本  | 合约                | 地址                                        |
 |---------|-------|--------------------|--------------------------------------------|
+| Rinkeby | 0.5.1 | SeeDAO Genesis NFT | 0x3811362Fdb9b1C2fC6A17b20919Ab4C278312aD1 |
+|         |       | SEED               | 0x8F89366B48b9aD9480D08bBC633Ab6807a489b34 |
+|         |       | Combinator         | 0xC6a30AaD5d0032Fc0cB8646EDC01e4c3cBF3F6A4 |
 | Rinkeby | 0.4.0 | SeeDAO Genesis NFT | 0xEFbe15B6986e10092008Ec6F339E967dAD460a35 |
 |         |       | SEE                | 0xe11C7eA31B92B6e0eB86154786DD8D302A9D5b82 |
 |         |       | Combinator         | 0x790c7AA995B4017A0197F959fF6E368DF8045C66 |
@@ -29,6 +32,7 @@
 | verify(address to, string calldata id, uint256 amount, bytes32 ticket, uint256 timestamp, bytes memory signature) | 验证签名 | `address to`: 帐户地址，该地址也是claim时候使用的地址<br/>`string calldata id`: 项目id<br/>`uint256 amount`: 奖励数量<br/>`bytes32 ticket`: 票价，防止重复领取<br/>`uint256 timestamp`: Unix时间戳，单位是秒<br/>`bytes memory signature`: 签名 | true: 匹配<br/> false：不匹配 |
 
 #### verify
+
 验证签名是否是管理员签发，是返回true，不是返回false。
 ```solidity
 function verify(
