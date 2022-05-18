@@ -3,6 +3,9 @@
 ## 合约部署地址
 | 网络     | 版本  | 合约                | 地址                                        |
 |---------|-------|--------------------|--------------------------------------------|
+| Rinkeby | 0.6.0 | SeeDAO Genesis NFT | 0x25c2083B8669c2f2255f93227e6D99ef8552103b |
+|         |       | SEED               | 0x9a22Da1b3B062C5F074B4122b7C4a84219f35A19 |
+|         |       | Combinator         | 0x64AEA9bDC283FF0EF211E736030c307E55274006 |
 | Rinkeby | 0.5.1 | SeeDAO Genesis NFT | 0x3811362Fdb9b1C2fC6A17b20919Ab4C278312aD1 |
 |         |       | SEED               | 0x8F89366B48b9aD9480D08bBC633Ab6807a489b34 |
 |         |       | Combinator         | 0xC6a30AaD5d0032Fc0cB8646EDC01e4c3cBF3F6A4 |
