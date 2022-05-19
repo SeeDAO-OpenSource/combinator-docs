@@ -43,6 +43,7 @@ API返回的数据均遵守以下数据结构
   - `GET /rewards/ID`: 列出单个项目收益，ID为项目ID
   - `GET /roi`: 列出ROI
   - `POST /claim`: 获取奖励签名，用于合约交互
+  - `GET /whitelist`: 验证是否在白名单额度
 - 管理接口
   - `POST /admin/rounds/`: 提交一个新轮次
   - `DELETE /admin/projects/ID`: 删除某个项目
@@ -364,6 +365,37 @@ curl -X POST http://dev.seedao.cc/api/v1/files \
 - `projects`: 项目ID列表
 - `amounts`: 奖励数量列表
 - `signature`: 签名
+
+### 验证是否在白名单额度 `GET /whitelist`
+
+** 参数 **
+
+无
+
+** 返回 **
+
+- `account`: 帐户
+- `quota`: 额度，`1`表示还能新建一次项目，`0`表示无法新建项目
+
+** 示例 **
+
+请求时需要附上登录token
+```bash
+curl -s 'http://localhost:8080/whitelist' -H 'Authorization:Bearer ${JWT TOKEN HERE}'
+```
+
+返回的结果如下
+```json
+{
+  "state": 200,
+  "msg": "ok",
+  "data": {
+    "account": "0x542A9db710a48b0A952483F256c556E24B000a13",
+    "quota": 1
+  }
+}
+```
+
 
 ### 提交一个新轮次 `POST /admin/rounds/`
 
