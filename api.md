@@ -44,6 +44,10 @@ API返回的数据均遵守以下数据结构
   - `GET /roi`: 列出ROI
   - `POST /claim`: 获取奖励签名，用于合约交互
   - `GET /whitelist`: 验证是否在白名单额度
+  - `GET /profile`: 获得用户`Profile`，目前只有头像ID
+  - `POST /profile`: 设置用户`Profile`，目前仅支持设置头像ID
+  - `GET /favorites`: 获取用户喜欢的项目
+  - `POST /favorite`: 喜欢(点赞)一个项目
 - 管理接口
   - `POST /admin/rounds/`: 提交一个新轮次
   - `DELETE /admin/projects/ID`: 删除某个项目
@@ -368,16 +372,16 @@ curl -X POST http://dev.seedao.cc/api/v1/files \
 
 ### 验证是否在白名单额度 `GET /whitelist`
 
-** 参数 **
+**参数**
 
 无
 
-** 返回 **
+**返回**
 
 - `account`: 帐户
 - `quota`: 额度，`1`表示还能新建一次项目，`0`表示无法新建项目
 
-** 示例 **
+**示例**
 
 请求时需要附上登录token
 ```bash
@@ -396,6 +400,139 @@ curl -s 'http://localhost:8080/whitelist' -H 'Authorization:Bearer ${JWT TOKEN H
 }
 ```
 
+#### 获得用户`Profile` `GET /profile`
+
+目前只有头像ID
+
+**参数**
+
+- `avatar`: 头像ID，一般是`1`到`10000`之间的整数
+
+**返回**
+- `success`: 是否成功
+
+**示例**
+
+```bash
+curl -s 'http://localhost:8080/profile' -H 'Authorization:Bearer ${JWT TOKEN HERE}'
+```
+
+没有设置的用户，返回空结果
+```json
+{
+  "state": 200,
+  "msg": "ok",
+  "data": {
+    "account": "",
+    "avatarId": 0
+  }
+}
+```
+
+设置过头像的用户，返回用户账户和头像的ID
+```json
+{
+  "state": 200,
+  "msg": "ok",
+  "data": {
+    "account": "0x542A9db710a48b0A952483F256c556E24B000a13",
+    "avatarId": 2
+  }
+}
+```
+
+#### 设置用户`Profile` `POST /profile`
+
+目前仅支持设置头像ID
+
+**参数**
+- `avatarId`: 头像的ID编号，指的是SGN编号
+
+**返回**
+- `success`: 成功与否
+
+**示例**
+
+```bash
+curl -s 'http://localhost:8080/profile' \
+    -H 'Authorization:Bearer ${JWT TOKEN HERE}' \
+    -H 'Content-Type:application/json' \
+    -d '{"avatarId":2}'
+```
+
+```json
+{
+  "state": 200,
+  "msg": "ok",
+  "data": {
+    "success": true
+  }
+}
+```
+
+#### 获取用户喜欢的项目 `GET /favorites`
+
+**参数**
+
+无
+
+**返回**
+
+- `projects`: 项目列表（仅包含部分字段）
+    - `id`: 项目ID
+    - `title`: 标题
+    - `image`: 图片链接
+    - `desc`: 摘要描述
+
+**示例**
+
+```bash
+curl -s 'http://localhost:8080/favorites' \
+    -H 'Authorization:Bearer ${JWT TOKEN HERE}'
+```
+
+```json
+{
+  "state": 200,
+  "msg": "ok",
+  "data": [
+    {
+      "id": "629b569d8880b5ef064dd9cc",
+      "title": "Project Title",
+      "image": "图片链接",
+      "desc": "这里是被截断了的描述"
+    }
+  ]
+}
+```
+
+#### 喜欢(点赞)一个项目 `POST /favorite`
+
+用户喜欢/点赞/收藏一个项目，该项目会在其个人页面的专门tab页内展示。
+
+**参数**
+- `projectId`: 项目ID
+
+**返回**
+- `success`: 成功与否
+
+**示例**
+
+```bash
+curl -s 'http://localhost:8080/favorite' \
+    -H 'Authorization:Bearer ${JWT TOKEN HERE}' \
+    -H 'Content-Type:application/json' -d '{"projectId":"629b569d8880b5ef064dd9cc"}'
+```
+
+```json
+{
+  "state": 200,
+  "msg": "ok",
+  "data": {
+    "success": true
+  }
+}
+```
 
 ### 提交一个新轮次 `POST /admin/rounds/`
 
