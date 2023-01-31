@@ -48,6 +48,7 @@ API返回的数据均遵守以下数据结构
   - `POST /profile`: 设置用户`Profile`，目前仅支持设置头像ID
   - `GET /favorites`: 获取用户喜欢的项目
   - `POST /favorite`: 喜欢(点赞)一个项目
+  - `POST /claim`: Claim 投票
 - 管理接口
   - `POST /admin/rounds/`: 提交一个新轮次
   - `DELETE /admin/projects/ID`: 删除某个项目
@@ -522,6 +523,34 @@ curl -s 'http://localhost:8080/favorites' \
 curl -s 'http://localhost:8080/favorite' \
     -H 'Authorization:Bearer ${JWT TOKEN HERE}' \
     -H 'Content-Type:application/json' -d '{"projectId":"629b569d8880b5ef064dd9cc"}'
+```
+
+```json
+{
+  "state": 200,
+  "msg": "ok",
+  "data": {
+    "success": true
+  }
+}
+```
+
+#### `POST /claim`: Claim 投票
+
+根据快照，每个 SGN 持有人有 6 票可以随意支配，Claim 即主动领取投票权。
+
+**参数**
+- `round`: 活动轮次
+
+**返回**
+- `success`: 成功与否
+
+**示例**
+
+```bash
+curl -s 'http://localhost:8080/claim' \
+    -H 'Authorization:Bearer ${JWT TOKEN HERE}' \
+    -H 'Content-Type:application/json' -d '{"round": 2}'
 ```
 
 ```json
