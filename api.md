@@ -42,7 +42,6 @@ API返回的数据均遵守以下数据结构
   - `GET /rewards`: 列出本人收益
   - `GET /rewards/ID`: 列出单个项目收益，ID为项目ID
   - `GET /roi`: 列出ROI
-  - `POST /claim`: 获取奖励签名，用于合约交互
   - `GET /whitelist`: 验证是否在白名单额度
   - `GET /profile`: 获得用户`Profile`，目前只有头像ID
   - `POST /profile`: 设置用户`Profile`，目前仅支持设置头像ID
@@ -358,18 +357,6 @@ curl -X POST http://dev.seedao.cc/api/v1/files \
   - `total`: 全部收益
   - `lastRound`: 上一期收益
   - `averageRound`: 平均每期收益
-
-### 获取奖励签名，用于合约交互 `POST /claim`
-
-**参数**
-
-- `projects`: 项目ID列表
-
-**返回**
-- `account`: 帐户地址
-- `projects`: 项目ID列表
-- `amounts`: 奖励数量列表
-- `signature`: 签名
 
 ### 验证是否在白名单额度 `GET /whitelist`
 
