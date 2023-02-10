@@ -390,14 +390,16 @@ curl -s 'http://localhost:8080/whitelist' -H 'Authorization:Bearer ${JWT TOKEN H
 
 #### 获得用户`Profile` `GET /profile`
 
-目前只有头像ID
+目前有头像ID和是否可以claim票数。
+claimable如果是true，表示需要弹窗，让用户claim，点击后后端会给该用户派发6张票。
 
 **参数**
 
-- `avatar`: 头像ID，一般是`1`到`10000`之间的整数
+- 无
 
 **返回**
-- `success`: 是否成功
+- `avatarId`: 头像的ID编号，指的是SGN编号，一般是`1`到`10000`之间的整数，如1,2,3
+- `claimable`: 是否可以claim
 
 **示例**
 
@@ -412,7 +414,8 @@ curl -s 'http://localhost:8080/profile' -H 'Authorization:Bearer ${JWT TOKEN HER
   "msg": "ok",
   "data": {
     "account": "",
-    "avatarId": 0
+    "avatarId": 0,
+    "claimable": true
   }
 }
 ```
@@ -424,7 +427,8 @@ curl -s 'http://localhost:8080/profile' -H 'Authorization:Bearer ${JWT TOKEN HER
   "msg": "ok",
   "data": {
     "account": "0x542A9db710a48b0A952483F256c556E24B000a13",
-    "avatarId": 2
+    "avatarId": 2,
+    "claimable": true
   }
 }
 ```
