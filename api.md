@@ -39,9 +39,9 @@ API返回的数据均遵守以下数据结构
   - `POST /votes`: 投票
   - `GET /myVoting`: 查看自己投票的项目
   - `GET /balance`: 余额
-  - `GET /rewards`: 列出本人收益
-  - `GET /rewards/ID`: 列出单个项目收益，ID为项目ID
-  - `GET /roi`: 列出ROI
+  - ~~`GET /rewards`: 列出本人收益~~
+  - ~~`GET /rewards/ID`: 列出单个项目收益，ID为项目~~ID
+  - ~~`GET /roi`: 列出ROI~~
   - `GET /whitelist`: 验证是否在白名单额度
   - `GET /profile`: 获得用户`Profile`，目前只有头像ID
   - `POST /profile`: 设置用户`Profile`，目前仅支持设置头像ID
@@ -308,55 +308,6 @@ curl -X POST http://dev.seedao.cc/api/v1/files \
 
 - `account`: 帐户地址
 - `balance`: 余额
-
-
-### 列出本人收益: `GET /rewards`
-
-按项目列出本人的收益，默认只列出未领取(claim)的收益
-
-**参数**
-
-无
-
-**返回**
-
-- `rewards`: 奖励列表
-  - `account`: 帐户
-  - `project`: 项目ID
-  - `rewards`: 奖励，类型是`float64`, 单位是 `SEED`
-  - `rewardsInWei`: 奖励，类型是字符串，单位是`wei`，可以直接传入合约
-  - `round`: 项目所在的轮次
-  - `timestamp`: 签名的时间戳，单位是秒
-  - `sig`: 签名
-
-### 列出单个项目收益，ID为项目ID: `GET /rewards/ID`
-
-**参数**
-
-路径中含有项目id
-
-**返回**
-
-- `account`: 帐户
-- `project`: 项目ID
-- `rewards`: 奖励，类型是`float64`, 单位是 `SEED`
-- `rewardsInWei`: 奖励，类型是字符串，单位是`wei`，可以直接传入合约
-- `round`: 项目所在的轮次
-- `timestamp`: 签名的时间戳，单位是秒
-- `sig`: 签名
-
-### 列出ROI: `GET /roi`
-
-**参数**
-
-无
-
-**返回**
-- `roi`: ROI，小数，如0.1表示10%
-- `profit`:
-  - `total`: 全部收益
-  - `lastRound`: 上一期收益
-  - `averageRound`: 平均每期收益
 
 ### 验证是否在白名单额度 `GET /whitelist`
 
