@@ -51,6 +51,11 @@ API返回的数据均遵守以下数据结构
 - 管理接口
   - `POST /admin/rounds/`: 提交一个新轮次
   - `DELETE /admin/projects/ID`: 删除某个项目
+  - `GET /admin/pending`: 获取未审核项目列表
+  - `PUT /admin/project/ID`: 审核某个项目
+  - `GET /admin/export/project/pending`: 导出未审核项目
+  - `GET /admin/partners`: 获取合作伙伴列表
+  - `POST /admin/partners`: 设置合作伙伴列表(全量)
 
 ## 开放接口
 
@@ -528,3 +533,116 @@ curl -s 'http://localhost:8080/claim' \
 **返回**
 
 - `success`: 是否成功，1成功，0失败
+
+
+### 获取未审核项目列表 `GET /admin/pending`
+
+**参数**
+
+无
+
+**返回**
+
+**示例**
+
+### 审核某个项目 `PUT /admin/project/ID`
+
+**参数**
+
+**返回**
+
+- `success`: 是否成功
+
+**示例**
+
+### 导出未审核项目 `GET /admin/export/project/pending`
+
+**参数**
+
+无
+
+**返回**
+
+csv文件
+
+**示例**
+
+无
+
+### 获取合作伙伴列表 `GET /admin/partners`
+
+**参数**
+
+无
+
+**返回**
+
+- `partners`: 合作伙伴列表
+  - `name`: 名称
+  - `url`: 官网地址
+  - `logo`: Logo图片地址
+
+**示例**
+
+```bash
+curl 'http://localhost:8080/admin/partners' -H 'Authorization:Bearer ${JWT TOKEN HERE}'
+```
+
+```json
+{
+  "state": 200,
+  "msg": "ok",
+  "data": [
+    {
+      "name": "Awesome Project 1",
+      "url": "https://example1.com",
+      "logo": "https://example1.com/logo.png"
+    },
+    {
+      "name": "Awesome Project 2",
+      "url": "https://example2.com",
+      "logo": "https://example2.com/logo.png"
+    }
+  ]
+}
+```
+
+### 设置合作伙伴列表 `POST /admin/partners`
+
+**参数**
+
+- `partners`: 合作伙伴列表
+  - `name`: 名称
+  - `url`: 官网地址
+  - `logo`: Logo图片地址
+
+**返回**
+
+- `success`: 是否成功
+
+**示例**
+
+```bash
+curl 'http://localhost:8080/admin/partners' -H 'Authorization:Bearer ${JWT TOKEN HERE}' -H 'Content-Type:application/json' -d '[
+	{
+		"name": "Awesome Project 1",
+		"url": "https://example1.com",
+		"logo": "https://example1.com/logo.png"
+	},
+	{
+		"name": "Awesome Project 2",
+		"url": "https://example2.com",
+		"logo": "https://example2.com/logo.png"
+	}
+]'
+```
+
+```json
+{
+  "state": 200,
+  "msg": "ok",
+  "data": {
+    "success": true
+  }
+}
+```
