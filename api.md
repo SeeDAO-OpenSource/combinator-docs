@@ -30,6 +30,7 @@ API返回的数据均遵守以下数据结构
   - `GET /static/{filename}`: 下载文件
   - `GET /nonce`: 获取随机数
   - `POST /login`: 登录
+  - `GET /partners`: 获取合作伙伴列表
 - 认证接口
   - `POST /projects`: 提交一个新项目
   - `POST /cover`: 上传图片
@@ -53,8 +54,8 @@ API返回的数据均遵守以下数据结构
   - `DELETE /admin/projects/ID`: 删除某个项目
   - `GET /admin/pending`: 获取未审核项目列表
   - `PUT /admin/project/ID`: 审核某个项目
+  - `POST /admin/project/ID`: 修改某个项目的资料
   - `GET /admin/export/project/pending`: 导出未审核项目
-  - `GET /admin/partners`: 获取合作伙伴列表
   - `POST /admin/partners`: 设置合作伙伴列表(全量)
 
 ## 开放接口
@@ -555,6 +556,23 @@ curl -s 'http://localhost:8080/claim' \
 
 **示例**
 
+### 修改某个项目的资料 `POST /admin/project/ID`
+
+**参数**
+
+- `image`: 图片链接
+- `title`: 标题
+- `desc`: 摘要描述
+- `founders`: 以太坊地址或 ENS 域名列表
+- `email`: Email 地址
+- `attachments`: 附件链接
+
+**返回**
+
+- `success`: 是否成功
+
+**示例**
+
 ### 导出未审核项目 `GET /admin/export/project/pending`
 
 **参数**
@@ -569,7 +587,7 @@ csv文件
 
 无
 
-### 获取合作伙伴列表 `GET /admin/partners`
+### 获取合作伙伴列表 `GET /partners`
 
 **参数**
 
@@ -585,7 +603,7 @@ csv文件
 **示例**
 
 ```bash
-curl 'http://localhost:8080/admin/partners' -H 'Authorization:Bearer ${JWT TOKEN HERE}'
+curl 'http://localhost:8080/partners' -H 'Authorization:Bearer ${JWT TOKEN HERE}'
 ```
 
 ```json
