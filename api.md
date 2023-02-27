@@ -313,7 +313,8 @@ curl -X POST http://dev.seedao.cc/api/v1/files \
 **返回**
 
 - `account`: 帐户地址
-- `balance`: 余额
+- `total`: 本轮总票数，一般为`6`。
+- `balance`: 余额，即还剩几票可以投。
 
 ### 验证是否在白名单额度 `GET /whitelist`
 
@@ -517,13 +518,58 @@ curl -s 'http://localhost:8080/claim' \
 
 - `ID`: 大于0的整数，或者`current`
 - `start`: 开始时间，Unix时间戳（单位：秒）
+  - 指的是该轮活动总体开始时间，一般和报名阶段开始时间相同。
 - `end`: 结束时间，Unix时间戳（单位：秒）
+  - 指的是该轮活动总体结束时间，活动的总起止时间要包含各个阶段的时间。
+- `phaseSubmit`: 报名阶段
+  - `start`: 开始时间，Unix时间戳（单位：秒）
+  - `end`: 结束时间，Unix时间戳（单位：秒）
+- `phaseWorkshop`: 工作坊阶段
+  - `start`: 开始时间，Unix时间戳（单位：秒）
+  - `end`: 结束时间，Unix时间戳（单位：秒）
+- `phaseIdle`: 闲置期
+  - `start`: 开始时间，Unix时间戳（单位：秒）
+  - `end`: 结束时间，Unix时间戳（单位：秒）
+- `phaseVote`: 投票阶段
+  - `start`: 开始时间，Unix时间戳（单位：秒）
+  - `end`: 结束时间，Unix时间戳（单位：秒）
+- `phaseCount`: 唱票阶段
+  - `start`: 开始时间，Unix时间戳（单位：秒）
+  - `end`: 结束时间，Unix时间戳（单位：秒）
 
 **返回**
 
-- `id`: Round Id，大于0的整型数字
-- `start`: 开始时间，Unix时间戳（单位：秒）
-- `end`: 结束时间，Unix时间戳（单位：秒）
+- `success`: 是否成功
+
+**示例**
+
+```bash
+curl 'http://localhost:8080/admin/rounds' -H 'Authorization:Bearer ${JWT TOKEN HERE}' -H 'Content-Type:application/json' -d '{
+      "id" : 2,
+      "start" : 1673319600,
+      "end" : 1679673599,
+      "phaseSubmit" : {
+            "start" : 1673319600,
+            "end" : 1676476800
+      },
+      "phaseWorkshop" : {
+            "start" : 1676476800,
+            "end" : 1678895999
+      },
+      "phaseCount" : {
+            "start" : 1679587200,
+            "end" : 1679673599
+      },
+      "phaseIdle" : {
+            "start" : 1678896000,
+            "end" : 1678982399
+      },
+      "phaseVote" : {
+            "start" : 1678982400,
+            "end" : 1679587199
+      }
+}'
+```
 
 ### 删除某个项目 `DELETE /admin/projects/ID`
 
