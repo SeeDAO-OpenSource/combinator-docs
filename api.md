@@ -39,7 +39,7 @@ API返回的数据均遵守以下数据结构
   - `GET /votes`: 查看自己的投票
   - `POST /votes`: 投票
   - `GET /myVoting`: 查看自己投票的项目
-  - `GET /balance`: 余额
+  - `GET /balance`: 查询余额
   - ~~`GET /rewards`: 列出本人收益~~
   - ~~`GET /rewards/ID`: 列出单个项目收益，ID为项目~~ID
   - ~~`GET /roi`: 列出ROI~~
@@ -304,7 +304,7 @@ curl -X POST http://dev.seedao.cc/api/v1/files \
     - `founders`: 以太坊地址或ENS域名列表
     - `myVotes`: 我投的票数
 
-### 充值Genesis或SEE `GET /balance`
+### 查询余额 `GET /balance`
 
 **参数**
 
